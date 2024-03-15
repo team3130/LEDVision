@@ -17,7 +17,7 @@ while running:
     # Reads image, crops it, and flips it
     result, img = cam.read()
     img = img[(numOfLeds + 1) * -1: -1]
-    img = cv2.flip(img, 1) # This is only for testing with a webcam. Remove this in implimentation
+    img = cv2.flip(img, 1) # This is only for testing with a webcam. Remove this in implementation
     
     # Variable result is a boolean of whether or not the camera returned an image
     # This if statement prevents the code from crashing if the camera stops for a few frames
