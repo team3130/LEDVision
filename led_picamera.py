@@ -1,6 +1,6 @@
 import pygame # Use command 'pip install pygame'
-from picamera import Picamera # Use command 'pip install picamera'
-from numpy import np # Python comes with this so you're fine
+from picamera2 import Picamera2 # Use command 'pip install picamera'
+import numpy as np # Python comes with this so you're fine
 import cv2 # Use command 'pip install 'opencv-python'
 
 running = True
@@ -12,13 +12,14 @@ screen = pygame.display.set_mode((pixelSize * numOfLeds, pixelSize))
 pygame.display.set_caption('LEDs')
 
 # Creates the camera and image array
-camera = Picamera()
-img = np.empty((240, 320, 3), dtype=np.uint8)
+camera = Picamera2()
+
+camera.start()
 
 while running:
 
     # Reads image, crops it, and flips it
-    camera.capture(img, 'rgb')
+    img = camera.capture_array()
     img = img[(numOfLeds + 1) * -1: -1]
     img = cv2.flip(img, 1) # This is only for testing. Remove this in implementation
   
@@ -39,3 +40,5 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:  
            running = False
+
+camera.stop()
